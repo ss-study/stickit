@@ -1,0 +1,17 @@
+/*-- 
+DON'T EDIT share.css DIRECTLY.
+YOU SHOULD EDIT components/*.scss AND SAVE share.scss.
+--*/
+
+@charset "UTF-8";
+@import "components/color";
+@import "components/mixin";
+@import "components/variables";
+@import "components/nav";
+@import "components/modal";
+@import "components/footer";
+@import "components/style";
+
+#copy2clipboard {
+  margin-top: 8px;
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Stickit | Board</title>
+    <meta name="theme-color" content="#E65100">
+    <!-- Materialize.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <!-- Material icons -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css" type="text/css" />
+    <!-- original -->
+    <link rel="stylesheet" href="css/board.css">
+  </head>
+  <body>
+    
+    <!-- loading animation -->
+    <div id="js-loader" class="loader">
+      <div class="load-item">
+        <div class="breeding-rhombus-spinner">
+          <div class="rhombus child-1"></div>
+          <div class="rhombus child-2"></div>
+          <div class="rhombus child-3"></div>
+          <div class="rhombus child-4"></div>
+          <div class="rhombus child-5"></div>
+          <div class="rhombus child-6"></div>
+          <div class="rhombus child-7"></div>
+          <div class="rhombus child-8"></div>
+          <div class="rhombus big"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 付箋のテンプレート -->
+    <template id="template">
+      <div class="stick">
+        <div class="label_text"></div>
+        <textarea class="label_textarea" ></textarea>
+      </div>
+    </template>
+    
+    <!-- カーソルに追従するダミー要素-->
+    <div id="cursor" class="dummy"></div>
+    
+    <!-- Board Setting Modal -->
+    <div id="board_setting" class="modal bottom-sheet">
+      <div class="modal-content">
+        <h4>Board setting</h4>
+        <form id="board_setting_form" class="container">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="new_boardname" type="text" class="validate">
+              <label for="new_boardname">New board name</label>
+            </div>
+            <div class="input-field col s11">
+              <input id="new_pin" type="password" class="validate pwd-visibility" pattern="[0-9]{4}">
+              <label for="new_pin">New PIN(4-digit or blank)</label>
+            </div>
+            <span class="col s1 field-icon">
+              <i toggle="password-field" class="mdi mdi-eye toggle-password Large"></i>
+            </span>
+            <div class="input-field col s12 center">
+              <button class="modal-close btn waves-effect waves-light orange center" type="button" onClick="submitBoardSetting()">
+                Save
+                <i class="material-icons right">create</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="modal">
+      <div class="modal-content">
+        <h5 class="center"></h5>
+        <div class="row">
+          <div class="col s12 center">
+            <button id="join-w-login"
+                    class="btn waves-effect waves-light orange center"
+                    type="button"
+            >
+              Join with login
+            </button>
+            <p>or</p>
+            <button class="btn waves-effect waves-light teal center join-w-guest"
+                    tyoe="button"
+            >
+              Join with guest
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <h5 class="center">Login</h5>
+        <div class="row">
+          <form id="login-modal__form" class="container">
+            <div class="row">
+              <div class="col s12">
+                <div class="input-field col s12">
+                  <input id="login-email" type="email" class="validate" required>
+                  <label for="login-email">E-mail</label>
+                </div>
+                <div class="input-field col s10">
+                  <input id="login-password" type="password" class="validate pwd-visibility" required>
+                  <label for="login-password">Password</label>
+                </div>
+                <span class="col s1 field-icon">
+                  <i toggle="password-field" class="mdi mdi-eye toggle-password Large"></i>
+                </span>
+                <div class="input-field col s12 center">
+                  <button id="login-btn" class="btn waves-effect waves-light orange center" type="button">
+                    Login
+                  </button>
+                  <p class="help-block"></p>
+                </div>
+                <div class="col s12 center grey-text">
+                  <p>
+                    Not registered? <a id="to-register" class="orange-text"><u>Create an account.</u></a><br>
+                    Or <a class="join-w-guest"><u>Join with Guest account.</u></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <h5 class="center">Create New Account</h5>
+        <div class="row">
+          <form id="register-modal__form" class="container">
+            <div class="row">
+              <div class="col s12">
+                <div class="input-field col s12">
+                  <input id="register-email" type="email" class="validate" required>
+                  <label for="register-email">E-mail*</label>
+                </div>
+                <div class="input-field col s12">
+                  <input id="register-username" type="text" class="validate" required>
+                  <label for="register-username">User name*</label>
+                </div>
+                <div class="input-field col s10">
+                  <input id="register-password" type="password" class="validate pwd-visibility" required>
+                  <label for="register-password">Password*</label>
+                </div>
+                <span class="col s1 field-icon">
+                  <i toggle="password-field" class="mdi mdi-eye toggle-password Large"></i>
+                </span>
+                <input type="hidden" id="do_register" value=true>
+                <div class="input-field col s12 center">
+                  <button id="register-btn" class="btn waves-effect waves-light orange center" type="button">
+                    Register
+                  </button>
+                  <p class="help-block"></p>
+                </div>
+                <div class="col s12 center grey-text">
+                  <p>
+                    Already have an account? <a id="to-login" class="orange-text"><u>Login.</u></a><br>
+                    Or <a class="join-w-guest"><u>Join with Guest account.</u></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PIN Modal -->
+    <div id="PIN-modal" class="modal">
+      <div class="modal-content">
+        <h5 class="center">PIN code</h5>
+        <div class="row">
+          <form id="PIN-modal__form" class="col s12">
+            <div class="input-field col s10">
+              <input id="pin" type="password" class="validate pwd-visibility" pattern="[0-9]{4}">
+              <label for="pin">PIN(4-digit)</label>
+            </div>
+            <span class="col s1 field-icon">
+              <i toggle="password-field" class="mdi mdi-eye toggle-password Large"></i>
+            </span>
+            <div class="input-field col s12 center">
+              <button id="pin-btn" class="btn waves-effect waves-light orange center" type="button">
+                Enter
+              </button>
+              <p class="help-block"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Wrapper-->
+    <div id="wrapper">
+      <!-- Nav(header & Sidebar) -->
+      <header>
+        <div class="navbar-fixed">
+          <nav class="top-nav white">
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo center">
+                <img src="img/topnav-logo.png" class="center">
+              </a>
+              <div class="row">
+                <span class="col s11">
+                  <a href="index.html" class="top-nav full left-icon">
+                    <i class="material-icons orange-text">arrow_back</i>
+                  </a>
+                </span>
+                <span class="col s1 ">
+                  <!-- Sidnav trigger -->
+                  <a href="#" data-target="side-out" class="top-nav sidenav-trigger full right-icon show-on-large">
+                    <i class="material-icons orange-text">more_vert</i>
+                  </a>
+                </span>
+                
+              </div>
+            </div>
+          </nav>
+        </div>
+        <!-- Side Nav -->
+        <ul id="side-out" class="sidenav show-on-large">
+          <li>
+            <h5 class="orange-text name">Board name here</h5>
+          </li>
+          <li><div class="divider"></div></li>
+          <li><a href="#!" class="waves-effect modal-trigger" data-target="board_setting">
+            <i class="material-icons">settings</i>
+            Setting
+          </a></li>
+          <li class="hide-to-anony"><a href="invite.html" class="waves-effect">
+            <i class="material-icons">person</i>
+            Invite
+          </a></li>
+          <li ><div class="divider"></div></li>
+          <li class="hide-to-anony"><a href="#!" class="waves-effect" id="logout-button">
+            <i class="material-icons">arrow_back</i>
+            Logout
+          </a></li>
+          <li class="show-to-anony"><a href="#!" class="waves-effect" id="conv2perm">
+            <i class="material-icons">person</i>
+            Create Account
+          </a></li>
+        </ul>
+      </header>
+      
+      <!-- FAB -->
+      <div class="fixed-action-btn">
+        <a onClick="addStick()"
+           class="btn-floating btn-large deep-purple accent-2 
+                  waves-effect waves-light"
+        >
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
+      
+      <main>
+
+      </main>
+      
+      <div class="foot-menu">
+        <div class="mdc-bottom-navigation">
+          <nav class="mdc-bottom-navigation__list white">
+            <a id="EDIT" class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary waves-effect waves-orange btn-flat mdc-bottom-navigation__list-item--activated" data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
+              <span class="material-icons mdc-bottom-navigation__list-item__icon">edit</span>
+            </a>
+            <a id="LINK" class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary waves-effect waves-orange btn-flat" data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
+              <span class="material-icons mdc-bottom-navigation__list-item__icon">device_hub</span>
+            </a>
+            <a id="DELETE" class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary waves-effect waves-orange btn-flat" data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
+              <span class="material-icons mdc-bottom-navigation__list-item__icon">layers_clear</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="js/vendor/jquery-3.4.1.min.js"></script>
+    <script>
+      $('#js-loader').fadeIn(600);
+    </script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src="js/firebasesetup.js"></script>
+    <!-- Leader Line -->
+    <script src="js/vendor/leader-line.min.js"></script>
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- mdc -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <!-- js.cookie -->
+    <script src="js/vendor/js.cookie.js"></script>
+    <!-- original -->
+    <script src="js/user.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/pwd-visibility.js"></script>
+    <script src="js/foot-menu.js"></script>
+    <script src="js/init-materialize.js"></script>
+    <script src="js/board-modal.js"></script>
+    <script src="js/board-name-get.js"></script>
+    <script src="js/board-setting.js"></script>
+    <script src="js/board-init.js"></script>
+  </body>
+</html>

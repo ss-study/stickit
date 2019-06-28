@@ -1,0 +1,51 @@
+/*-- 
+DON'T EDIT board.css DIRECTLY.
+YOU SHOULD EDIT components/*.scss AND board.scss.
+--*/
+
+@charset "UTF-8";
+@import "components/color";
+@import "components/mixin";
+@import "components/variables";
+@import "components/modal";
+@import "components/footer";
+@import "components/nav";
+@import "components/loadanime";
+@import "components/style";
+
+body {
+  padding-bottom: 100px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.stick {
+  width: 200px;
+  height: 64px;
+  border: 1px solid black;
+  margin-bottom: 80px;
+  background: #fff;
+}
+
+.label_text {
+  padding: 10px;
+}
+
+.label_textarea {
+  resize: none;
+  width: 200px;
+  height: 64px;
+  display: none;
+}
+
+.fixed-action-btn {
+    bottom: 79px;
+}
+
+.field-icon {
+  padding: 0;
+  margin-top: 22px;
+  font-size: 24px;
+}

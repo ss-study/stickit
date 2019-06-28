@@ -1,0 +1,47 @@
+index
+*[done]ユーザー名表示 tsunashima
+*[done]未ログインユーザがアクセスした場合ログインページにリダイレクト tsunashima
+*[done]設定モーダルを出す kanazawa
+*[done]設定の変更処理 sekino
+*[done]カードの並び替え tsunashima
+*[done]ボード作成ボタンの位置修正 kanazawa
+
+board
+*[done]ボード名の表示 tsunashima
+*[done]設定モーダルを出す kanazawa
+*[done]設定の変更処理 sekino
+*[done]招待ページへの遷移 kanazawa
+*[done]戻るボタンの処理 kanazawa
+*[done]招待されたユーザがログインした時に、参加しているボードのIDをDBにデータを書き込む
+*[done]ノードの背景を白にする
+*[done]ログイン・ログアウト時のローディングアニメーション Kanazawa
+
+*[done]ログインが完了するまでボードの初期描画を行わない(裏) Kanazawa
+
+share
+*[WIP]メールの送信機能(Optional) Kanazawa
+** フロントエンドは完成済み
+** バックエンドは要Vue.js
+** 最悪mailtoでゴリ押しできそう
+
+login,register
+*[done]入力内容のバリデーションチェックが行われない
+*[done]ゲストからユーザアカウントの更新画面(Optional) Kanazawa
+*[done]ゲストからユーザアカウントの更新処理(Optional) Kanazawa
+
+
+*データベースのアクセスルール設定(最後、Optional)
+
+bug (couldn't be reproduced)
+*bug: トップ画面からログアウトすると、画面遷移の前にエラーが発生している(ログアウト処理自体は正しく動いている)
+*bug: ノードが変な場所に追加される?(条件不明,再現できない)
+
+bug
+*[fixed]bug: ボードの設定変更が反映されていない → saveボタンに関数を呼び出すonClickが付いていなかった
+*[fixed]bug: 正しいPINを入力しても「PINが間違っていますと表示される」 Kanazawa
+*[fixed]bug: ボードに招待された時のアカウント登録ができない Kanazawa
+　　　→未ログインユーザを正式アカウントに昇格させようとしているのではないか？
+*[fixed]bug: ログイン済みのユーザで新規にボードを作成すると、付箋の追加処理が動かない Kanazawa
+      →ログイン済みのユーザでボードに入った際にボードの初期描画関数が呼ばれていないのではないか？
+*[再現性無し]bug: ボードでログイン後、indexに戻るとloginにリダイレクトされる Kanazawa
+      

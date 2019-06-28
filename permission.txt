@@ -1,0 +1,38 @@
+{
+	"rules":{
+		
+		".read": true,
+		".write": true,
+
+		"board":{
+      ".read":"auth != null",
+			".write": "auth != null",
+     	
+			"$uid":{
+        // ログインユーザが参加権限を持つボードのみ読み書き可
+				".read": "root.child('users/'+auth.uid+'/boards/'+$uid).exists()",
+        ".write": "root.child('users/'+auth.uid+'/boards/'+$uid).exists()",
+        ".validate": "newData.hasChildren(['name', 'createdAt'])",
+                  
+        	"pin":{
+            ".read": true,
+            ".write": true,
+          },        
+			}
+		},
+
+		"user":{
+			".read": "auth != null",
+
+			"$uid":{
+				".write": "$uid === auth.uid",
+				
+        
+				"boards":{
+					".read": "$uid === auth.uid",
+				}
+			}
+
+		}
+  }
+}

@@ -1,0 +1,21 @@
+/*-- 
+DON'T EDIT main.css DIRECTLY.
+YOU SHOULD EDIT components/*.scss AND main.scss.
+--*/
+
+@charset "UTF-8";
+@import "components/color";
+@import "components/mixin";
+@import "components/variables";
+@import "components/nav";
+@import "components/modal";
+@import "components/boardlist";
+@import "components/flex";
+@import "components/footer";
+@import "components/style";
+
+.field-icon {
+  padding: 0;
+  margin-top: 22px;
+  font-size: 24px;
+}

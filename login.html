@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Stickit | Login</title>
+    <meta name="theme-color" content="#E65100">
+    <!-- Materialize.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Material icons -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css" type="text/css" />
+    <!-- original -->
+    <link rel="stylesheet" href="css/login.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <main>
+        <div class="row">
+          <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="row center top-image">
+              <img src="img/logo.png">
+            </div>
+            <!-- card -->
+            <div class="card">
+              <div class="card-content">
+                <h4 class="center grey-text">Login</h4>
+                <!-- Login Form -->
+                <form id="login-form" class="container">
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="input-field col s12">
+                        <input id="login-email" type="email" class="validate" required>
+                        <label for="login-email">E-mail</label>
+                      </div>
+                      <div class="input-field col s10">
+                        <input id="login-password" type="password" class="validate pwd-visibility" required>
+                        <label for="login-password">Password</label>
+                      </div>
+                      <span class="col s1 field-icon">
+                        <i toggle="password-field" class="mdi mdi-eye toggle-password Large"></i>
+                      </span>
+                      <div class="input-field col s12 center">
+                        <button id="login-button" class="btn waves-effect waves-light orange center" type="submit">
+                          Login
+                        </button>
+                        <p class="help-block"></p>
+                      </div>
+                      <div class="col s12 center grey-text">
+                        <p>Not registered? <a href="register.html" class="orange-text"><u>Create an account.</u></a></p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <footer class="footer-copyright orange">
+        <div class="container grey-text text-lighten-3">
+          (c) 2019 hogefugapiyo.
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src="js/firebasesetup.js"></script>
+    <!-- jQuery -->
+    <script src="js/vendor/jquery-3.4.1.min.js"></script>
+    <!-- mobile-detect -->
+    <script src="js/vendor/mobile-detect.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <!-- Leader Line -->
+    <script src="js/vendor/leader-line.min.js"></script>
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- js.cookie -->
+    <script src="js/vendor/js.cookie.js"></script>
+    <!-- original -->
+    <script src="js/user.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/pwd-visibility.js"></script>
+    <script src="js/init-materialize.js"></script>
+  </body>
+</html>

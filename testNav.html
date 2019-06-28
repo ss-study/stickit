@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Stickit | Nav</title>
+    <!-- CMaterialize.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- original -->
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <!-- Nav(header&Sidebar) -->
+    <header>
+      <nav class="top-nav white">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12">
+              <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
+                <i class="material-icons orange-text">menu</i>
+              </a>
+              <h5 class="header-text orange-text">Home</h5>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <ul id="nav-mobile" class="sidenav sidenav-fixed">
+        <li><div class="user-view">
+          <div class="background"></div>
+          <a href="#user"><img class="circle" src="img/logo.png"></a>
+          <a href="#name"><span class="white-text name">John Doe</span></a>
+        </div></li>
+        <li><a href="#!" class="waves-effect">
+          <i class="material-icons">settings</i>
+          Setting
+        </a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="#!" class="waves-effect red-text">
+          <i class="material-icons"></i>
+          Logout
+        </a></li>
+      </ul>
+    </header>
+      
+    </div>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src="js/firebasesetup.js"></script>
+    <!-- jQuery -->
+    <script src="js/vendor/jquery-3.4.1.min.js"></script>
+    <!-- mobile-detect -->
+    <script src="js/vendor/mobile-detect.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <!-- Leader Line -->
+    <script src="js/vendor/leader-line.min.js"></script>
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- original -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
