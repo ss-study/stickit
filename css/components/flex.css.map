@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,KAAM;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,SAAS,EAAE,IAAI;EACf,OAAE;IACA,OAAO,EAAE,YAAY",
+"sources": ["flex.scss"],
+"names": [],
+"file": "flex.css"
+}

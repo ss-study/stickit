@@ -187,10 +187,6 @@ const onMouseMoveEvent = function(e){
       "top": (cursor.y + drag.adjustY) + "px",
       "left": (cursor.x + drag.adjustX) + "px"
     });
-    // リンクの追従
-    link.data[drag.target.id].line.forEach( function(line){
-      line.position();
-    });
     e.preventDefault();
   }
   // [LINK]ガイド矢印を移動
