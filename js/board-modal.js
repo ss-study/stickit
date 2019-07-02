@@ -146,7 +146,7 @@ $(function(){
     $(".show-to-anony").show();
   });
   
-  $("#PIN-modal__form").submit(function() {
+  $("#pin-btn").on("click", function() {
     //TODO: [done]PIN認証処理
     const pin = $("#pin").val();
     pinAuth(pin, BOARD_ID).then(value => {
