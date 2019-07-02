@@ -45,7 +45,16 @@ nav{
     }
     @include sp {
       top: 14px;
-      
+    }
+  }
+  .header-text-nonav {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    top: 18px;
+    left: 72px;
+    @include sp {
+      top: 14px;
     }
   }
   .head-btn {
@@ -109,7 +118,7 @@ nav{
     justify-content: center;
     height: 100%;
   }
-  
+
   &__list-item {
     flex: 1 1 0;
     display: flex;
@@ -130,7 +139,7 @@ nav{
       transition-timing-function: cubic-bezier(.4, 0, .2, 1);
       transition-duration: 100ms;
     }
-    
+
     &--activated {
       .mdc-bottom-navigation__list-item__icon {
         padding-top: 16px;
