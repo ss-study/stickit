@@ -23,6 +23,7 @@ const initBoardSettingForm = function(){
     $("#new_pin").val(data[1]);
     $("#new_boardname").attr("readonly", false);
     $("#new_pin").attr("readonly", false);
+    M.updateTextFields();
   });
 };
 
