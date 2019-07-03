@@ -150,7 +150,7 @@ $(function(){
     $("#PIN-modal__form").submit();
   })
   
-  $("#pin-btn").on("click", function() {
+  $("#PIN-modal__form").submit(function() {
     //TODO: [done]PIN認証処理
     const pin = $("#pin").val();
     pinAuth(pin, BOARD_ID).then(value => {
