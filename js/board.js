@@ -199,8 +199,11 @@ const onMouseMoveEvent = function(e){
 // StickをFirebaseに登録
 const addStick = function(){
   screen.lock();
+  const stickPosition = new Object();
+  stickPosition.x = window.pageXOffset + 100;
+  stickPosition.y = window.pageYOffset + 150;
   const message = {
-    position: {x: 100, y: 100},
+    position: {x: stickPosition.x, y: stickPosition.y},
     text: ""
   };
   firebase.database().ref().child(`board/${BOARD_ID}/node`).push(message).then(function(){ screen.unlock(); });

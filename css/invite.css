@@ -1612,13 +1612,8 @@ nav {
     height: 100%;
     position: relative; }
     nav .brand-logo img {
-      display: inline-block;
       height: 70%;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      margin-top: auto;
-      margin-bottom: auto; }
+      margin-top: 30%; }
   nav .white-text {
     opacity: 0.87; }
   nav .side-nav-trigger {
@@ -1650,6 +1645,15 @@ nav {
     @media (max-width: 600px) {
       nav .header-text {
         top: 14px; } }
+  nav .header-text-nonav {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    top: 18px;
+    left: 72px; }
+    @media (max-width: 600px) {
+      nav .header-text-nonav {
+        top: 14px; } }
   nav .head-btn {
     position: absolute;
     top: 18px;
@@ -1668,6 +1672,9 @@ nav {
     padding: 16px 16px 0; }
     #nav-mobile .user-view .background {
       background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%); }
+
+#side-out .name {
+  margin-left: 64px; }
 
 .foot-menu {
   position: fixed;

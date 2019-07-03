@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,MAAO;EACL,GAAG,EAAE,GAAG;EACR,aAAa,EAAE,GAAG;EAClB,SAAG;IACD,KAAK,EAAE,OAAO;EAEhB,aAAO;IACL,aAAa,EAAE,GAAG",
-"sources": ["modal.scss"],
-"names": [],
-"file": "modal.css"
-}

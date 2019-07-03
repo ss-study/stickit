@@ -145,6 +145,10 @@ $(function(){
     $(".hide-to-anony").hide();
     $(".show-to-anony").show();
   });
+
+  $("#pin-btn").on("click", function(){
+    $("#PIN-modal__form").submit();
+  })
   
   $("#pin-btn").on("click", function() {
     //TODO: [done]PIN認証処理
