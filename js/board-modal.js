@@ -170,14 +170,6 @@ $(function(){
     register_modal.open();
   });
 
-  /* Open Modal */
-  if(Cookies.get("userId") === void(0)) {// TODO: [done]ユーザーがログインしていないならwelcome_modalを開く
-    welcome_modal.open();
-  }else {
-    pin_modal.open();
-    $('#js-loader').delay(300).fadeOut(400);
-  }
-  
   $(".hide-to-anony").show();
   $(".show-to-anony").hide();
 
