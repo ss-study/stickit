@@ -12,5 +12,7 @@ $(function(){
       }
       $('#js-loader').delay(300).fadeOut(400);
     });
+  }else{
+    welcome_modal.open();
   }
 });
