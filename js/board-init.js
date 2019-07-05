@@ -1,4 +1,4 @@
-/* globals $, Cookies, BOARD_ID, startBoardDrwaing, pin_modal */
+/* globals $, Cookies, BOARD_ID, startBoardDrawing, pin_modal */
 
 $(function(){
   
@@ -6,7 +6,7 @@ $(function(){
   if(userId != void(0)){
     firebase.database().ref(`users/${userId}/boards`).once("value").then(snapshot => {
       if(snapshot.hasChild(BOARD_ID)){
-        startBoardDrwaing();
+        startBoardDrawing();
       } else {
         pin_modal.open();
       }
