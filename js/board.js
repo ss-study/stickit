@@ -5,7 +5,7 @@ const MODE = { EDIT: 1, LINK: 2, DELETE: 3 };
 
 // モード状態に関するオブジェクト
 const state = new Object();
-state.mode = MODE.EDIT;Draw
+state.mode = MODE.EDIT;
 
 // リンクの状態に関するオブジェクト
 const link = new Object();
