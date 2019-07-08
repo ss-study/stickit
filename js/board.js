@@ -56,6 +56,18 @@ const getUrlVars = function(){
 };
 const BOARD_ID = getUrlVars().id;
 
+// Mapのメソッド追加
+Map.prototype.hasSameKey = function(targetMap){
+  let hasSameKey = false;
+  this.forEach(function(value, key){
+    if(targetMap.has(key)){
+      hasSameKey = true;
+      return null;
+    }
+  });
+	return hasSameKey;
+}
+
 // 描画開始処理
 const startBoardDrwaing = function(){
   // ノードの取得とイベントハンドラ追加
@@ -293,7 +305,13 @@ const onMouseUpEvent = function(e){
     }
     // thisがStickであり、かつ始点と終点が異なり、同じリンクが存在していない場合にリンクが作成できると判定
     const linkNode = { startNode: link.startNode.id, endNode: thisEvent.id };
-    if($(thisEvent).hasClass("stick") && (thisEvent !== link.startNode) && !link.data[linkNode.startNode].has(linkNode.endNode)){
+    const isStick = $(thisEvent).hasClass("stick");
+    const isSameNode = thisEvent === link.startNode;
+    const existsSameLink = link.data[link.startNode.id].hasSameKey(link.data[thisEvent.id]);
+    console.log(isStick);
+    console.log(isSameNode);
+    console.log(existsSameLink);
+    if(isStick && !isSameNode && !existsSameLink){
       firebase.database().ref().child(`board/${BOARD_ID}/link`).push(linkNode);
     }
   }
