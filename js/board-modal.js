@@ -1,11 +1,11 @@
-/* global M, $, BOARD_ID, Cookies, createUserAccount, createGuestAccount, login, logout, Promise, comvertGuest2Permanent, startBoardDrwaing*/
+/* global M, $, BOARD_ID, Cookies, createUserAccount, createGuestAccount, login, logout, Promise, comvertGuest2Permanent, startBoardDrawing*/
 
 /* init modals*/
 // Initialize modals
 const welcome_modal = M.Modal.init(document.querySelector("#welcome-modal"), {dismissible: false, onOpenStart: function() { $('#js-loader').delay(300).fadeOut(400); }});
 const login_modal = M.Modal.init(document.querySelector("#login-modal"), {dismissible: false});
 const register_modal = M.Modal.init(document.querySelector("#register-modal"), {dismissible: false});
-const pin_modal = M.Modal.init(document.querySelector("#PIN-modal"), {dismissible: false, onCloseEnd: function() { startBoardDrwaing(); }});
+const pin_modal = M.Modal.init(document.querySelector("#PIN-modal"), {dismissible: false, onCloseEnd: function() { startBoardDrawing(); }});
 const setting_modal = M.Modal.init(document.querySelector("#board_setting"));
 
 /**

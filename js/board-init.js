@@ -1,7 +1,6 @@
-/* globals $, Cookies, BOARD_ID, startBoardDrwaing, pin_modal */
+/* globals $, Cookies, BOARD_ID, startBoardDrawing, pin_modal */
 
 $(function(){
-
   if(BOARD_ID){//クエリからIDが取得できている時
     firebase.database().ref("board/"+BOARD_ID).once("value").then(snapshot => {
       if(snapshot.val()){ //クエリから取得したIDに該当するボードが存在する時

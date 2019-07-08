@@ -58,7 +58,7 @@ const getUrlVars = function(){
 const BOARD_ID = getUrlVars().id;
 
 // 描画開始処理
-const startBoardDrwaing = function(){
+const startBoardDrawing = function(){
   // ノードの取得とイベントハンドラ追加
   const nodeRef = firebase.database().ref(`board/${BOARD_ID}/node`);
   const linkRef = firebase.database().ref(`board/${BOARD_ID}/link`);
