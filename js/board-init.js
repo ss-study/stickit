@@ -8,7 +8,7 @@ $(function(){
         if(userId != void(0)){
           firebase.database().ref(`users/${userId}/boards`).once("value").then(snapshot => {
             if(snapshot.hasChild(BOARD_ID)){
-              startBoardDrwaing();
+              startBoardDrawing();
             } else {
               pin_modal.open();
             }
