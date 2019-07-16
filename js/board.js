@@ -10,7 +10,6 @@ state.mode = MODE.EDIT;
 // リンクの状態に関するオブジェクト
 const link = new Object();
 link.data = new Object();
-link.data.node = new Set();
 link.linkObject = null;
 link.startNode = null;
 link.hasStartNode = () => {
@@ -57,8 +56,20 @@ const getUrlVars = function(){
 };
 const BOARD_ID = getUrlVars().id;
 
+// Mapのメソッド追加
+Map.prototype.hasSameKey = function(targetMap){
+  let hasSameKey = false;
+  this.forEach(function(value, key){
+    if(targetMap.has(key)){
+      hasSameKey = true;
+      return null;
+    }
+  });
+	return hasSameKey;
+}
+
 // 描画開始処理
-const startBoardDrwaing = function(){
+const startBoardDrawing = function(){
   // ノードの取得とイベントハンドラ追加
   const nodeRef = firebase.database().ref(`board/${BOARD_ID}/node`);
   const linkRef = firebase.database().ref(`board/${BOARD_ID}/link`);
@@ -79,9 +90,7 @@ const startBoardDrwaing = function(){
     divTag.find(".label_textarea").val(text);
     $("body").append(divTag);
     attachEventListener("#" + id);
-    link.data[id] = new Object();
-    link.data[id].line = new Set();
-    link.data[id].id = new Set();
+    link.data[id] = new Map();
   });
   // ノードの変更監視
   nodeRef.on("child_changed", function(childSnapshot, prevChildKey) {
@@ -95,7 +104,7 @@ const startBoardDrwaing = function(){
     });
     $(`#${id}`).find(".label_text").text(text);
     $(`#${id}`).find(".label_textarea").val(text);
-    link.data[id].line.forEach( function(line){
+    link.data[id].forEach( function(line){
       line.position();
     });
   });
@@ -111,11 +120,8 @@ const startBoardDrwaing = function(){
         $(`#${endNode}`)[0],
         {color: '#ff9800'}
       );
-      link.data.node.add(`${startNode}${endNode}`);
-      link.data[startNode].line.add(line);
-      link.data[endNode].line.add(line);
-      link.data[startNode].id.add(id);
-      link.data[endNode].id.add(id);
+      link.data[startNode].set(id, line);
+      link.data[endNode].set(id, line);
       const $arrow = $(`#leader-line-${line._id}-line-path`).parent().parent();
       $arrow.attr("id", id);
       $arrow.find(".leader-line-plugs-face").attr("pointer-events", "all");
@@ -125,14 +131,15 @@ const startBoardDrwaing = function(){
   // 付箋の削除
   nodeRef.on("child_removed", function(childSnapshot, prevChildKey) {
     const id = childSnapshot.key;
+    delete link.data[id];
     $(`#${id}`).remove();
   });
   // リンクの削除
   linkRef.on("child_removed", function(childSnapshot, prevChildKey) {
     const id = childSnapshot.key;
-    const startNode = childSnapshot.val().startNode;
-    const endNode = childSnapshot.val().endNode;
-    link.data.node.delete(`${startNode}${endNode}`);
+    Object.keys(link.data).forEach( function(itr){
+      link.data[itr].delete(id);
+    });
     $(`#${id}`).remove();
   });
   // リンク後処理のためにマウスアップイベントをwindowで捕捉
@@ -188,7 +195,7 @@ const onMouseMoveEvent = function(e){
       "left": (cursor.x + drag.adjustX) + "px"
     });
     // リンクの追従
-    link.data[drag.target.id].line.forEach( function(line){
+    link.data[drag.target.id].forEach( function(line){
       line.position();
     });
     e.preventDefault();
@@ -234,7 +241,7 @@ const onClickEvent = function(){
       screen.lock();
       const id = $(this).attr("id");
       const promise = new Array();
-      link.data[id].id.forEach(function(value){
+      link.data[id].forEach(function(key, value){
         promise.push(new Promise(function(resolve, reject){
           firebase.database().ref().child(`board/${BOARD_ID}/link/${$(`#${value}`).attr("id")}`).remove().then(function(){ resolve(); });
         }));
@@ -298,7 +305,13 @@ const onMouseUpEvent = function(e){
     }
     // thisがStickであり、かつ始点と終点が異なり、同じリンクが存在していない場合にリンクが作成できると判定
     const linkNode = { startNode: link.startNode.id, endNode: thisEvent.id };
-    if($(thisEvent).hasClass("stick") && (thisEvent !== link.startNode) && !link.data.node.has(`${linkNode.startNode}${linkNode.endNode}`)){
+    const isStick = $(thisEvent).hasClass("stick");
+    const isSameNode = thisEvent === link.startNode;
+    const existsSameLink = link.data[link.startNode.id].hasSameKey(link.data[thisEvent.id]);
+    console.log(isStick);
+    console.log(isSameNode);
+    console.log(existsSameLink);
+    if(isStick && !isSameNode && !existsSameLink){
       firebase.database().ref().child(`board/${BOARD_ID}/link`).push(linkNode);
     }
   }

@@ -31,18 +31,27 @@ const initBoardSettingForm = function(){
 const submitBoardSetting = function(){
   const boardName = $("#new_boardname").val();
   const pin  = $("#new_pin").val();
-  // ボード名の更新
-  const boardNamePromise = new Promise(function(resolve, reject){
-    firebase.database().ref().child(`board/${BOARD_ID}/name`).set(boardName).then(function(){ resolve(); });
-  });
-  // PINの更新
-  const pinPromise = new Promise(function(resolve, reject){
-    firebase.database().ref().child(`board/${BOARD_ID}/pin`).set(pin).then(function(){ resolve(); });
-  });
-  // 両方更新した後の処理
-  Promise.all([boardNamePromise, pinPromise]).then(function(){
-    // write code after renew
-  });
+  const pinRegExp = /^[0-9]{4}$/;
+  if(pinRegExp.test(pin)) {
+    // ボード名の更新
+    const boardNamePromise = new Promise(function(resolve, reject){
+      firebase.database().ref().child(`board/${BOARD_ID}/name`).set(boardName).then(function(){ resolve(); });
+    });
+    // PINの更新
+    const pinPromise = new Promise(function(resolve, reject){
+      firebase.database().ref().child(`board/${BOARD_ID}/pin`).set(pin).then(function(){ resolve(); });
+    });
+    // 両方更新した後の処理
+    Promise.all([boardNamePromise, pinPromise]).then(function(){
+      M.toast({html: 'Board setting has been changed successfully',
+               classes: 'white green-text',
+               displayLength: 2000});
+    });
+  } else {
+    M.toast({html: 'Pin code is not correct.',
+             classes: 'white red-text',
+             displayLength: 2000});
+  }
 };
 
 $("#board_setting_form").submit(_ => {
