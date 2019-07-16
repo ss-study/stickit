@@ -1662,6 +1662,15 @@ nav {
     @media (max-width: 600px) {
       nav .header-text {
         top: 14px; } }
+  nav .header-text-nonav {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    top: 18px;
+    left: 72px; }
+    @media (max-width: 600px) {
+      nav .header-text-nonav {
+        top: 14px; } }
   nav .head-btn {
     position: absolute;
     top: 18px;
@@ -1883,7 +1892,9 @@ body::-webkit-scrollbar {
   background: #fff; }
 
 .label_text {
-  padding: 10px; }
+  padding: 10px;
+  overflow-wrap: break-word;
+  overflow: hidden; }
 
 .label_textarea {
   resize: none;

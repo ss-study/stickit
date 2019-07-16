@@ -31,6 +31,8 @@ body::-webkit-scrollbar {
 
 .label_text {
   padding: 10px;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 
 .label_textarea {
