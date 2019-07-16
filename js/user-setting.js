@@ -45,6 +45,9 @@ const submitBoardSetting = function(){
     Promise.all(promise).then(function(){
       console.log("Done all promise");
       // write code after renew
+      M.toast({html: 'User setting has been changed successfully',
+         classes: 'white green-text',
+         displayLength: 2000});
     });
   });
 };
